@@ -10,6 +10,8 @@ const designWidth = 750
 const rem2px = 100
 adapt(designWidth, rem2px)
 
+import 'src/assets/style.styl'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
