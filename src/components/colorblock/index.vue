@@ -1,5 +1,7 @@
 <template>
-  <div class='color-block'>
+  <div 
+    class='color-block clear-f'
+    :class="{small: small}">
     <div 
       v-for="backgroundColor in backgroundColors" 
       :style="{backgroundColor: backgroundColor}"></div>
@@ -15,9 +17,9 @@
           return ['#ef5350', '#00b8d4', '#fbaf29', '#00bfa5']
         }
       },
-      width: {
-        type: String,
-        default: '146px'
+      small: {
+        type: Boolean,
+        default: false
       }
     }
   }
@@ -27,8 +29,11 @@
   .color-block
     width: 146px
     height: 146px
+    &.small
+      width: 46px
+      height: 46px
     div
-      display: inline-block
+      float: left
       width: 47%
       height: 47%
       background: #fff

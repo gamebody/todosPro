@@ -141,6 +141,43 @@ export default new Vuex.Store({
           })
         }
       })
+    },
+    addList ({ lists }, name) {
+      lists.forEach((list) => {
+        list.isCurrent = false
+      })
+      const list = {
+        listName: name,
+        themeName: 'CLASSIC',
+        isCurrent: true,
+        categories: [
+          {
+            categorieName: 'FOCUS',
+            backgroundColor: '#00838f',
+            circleColor: '#cac2b4',
+            todos: []
+          },
+          {
+            categorieName: 'GOALS',
+            backgroundColor: '#f9c23b',
+            circleColor: '#cac2b4',
+            todos: []
+          },
+          {
+            categorieName: 'FIT IN',
+            backgroundColor: '#d76055',
+            circleColor: '#cac2b4',
+            todos: []
+          },
+          {
+            categorieName: 'BACKBURNER',
+            backgroundColor: '#687c94',
+            circleColor: '#cac2b4',
+            todos: []
+          }
+        ]
+      }
+      lists.push(list)
     }
   }
 })

@@ -9,21 +9,24 @@
       </div>
       <div class="home-list-content">
         <ul>
-          <li>
-            <router-link to="/">
-              <div class="list-item">
-                <div class="list-theme"></div>
+          <li v-for="list in lists">
+              <div class="list-item" :class="{active: list.isCurrent}">
+                <div class="list-theme">
+                  <div class="color-block-wrapper">
+                    <colorblock
+                      :small="true"></colorblock>
+                  </div> 
+                </div>
                 <div class="list-name ">
-                  <p>哈哈</p>
+                  <p>{{ list.listName }}</p>
                 </div>
                 <div class="list-count">
                   <span>11</span>
                 </div>
               </div>
-            </router-link>   
           </li> 
         </ul>
-        <div class="add-list">
+        <div class="add-list" @click="addList">
           <div class="add-list-icon">
             <span class="icon-add"></span>
           </div>
@@ -33,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div class="mask" @click="hiddenList($event)" v-show="maskShow"></div>
+    <div class="mask" @click="hiddenList" v-show="maskShow"></div>
 
     <div class="home-content">
       <div class="categoire-wrapper" v-for="item in categories">
@@ -51,6 +54,14 @@
           v-on:cancel="cancelTheme"
           v-on:save="saveTheme"></theme>
       </div>
+      
+    </div>
+
+    <div class="alert-wrapper" v-show="alertShow">
+      <alert
+        v-on:cancelAddList="cancelAddList"
+        v-on:addListOk="addListOk"
+        ref="alert"></alert>
     </div>
   </div>
 </template>
@@ -60,22 +71,29 @@
   import categorie from 'components/categorie'
   import addbutton from 'components/addbutton'
   import theme from 'components/theme'
+  import colorblock from 'components/colorblock'
+  import alert from 'components/alert'
 
   export default {
     data () {
       return {
         maskShow: false,
-        themeShow: false
+        themeShow: false,
+        alertShow: false
       }
     },
     computed: {
       categories () {
         return this.$store.state.lists[0].categories
+      },
+      lists () {
+        return this.$store.state.lists
       }
     },
     methods: {
-      hiddenList (e) {
+      hiddenList () {
         this.maskShow = false
+        this.alertShow = false
         document.getElementById('js_show').style.transform = 'translate(-100%)'
       },
       showList () {
@@ -92,13 +110,29 @@
       saveTheme () {
         this.toggleShowTheme()
         this.$store.commit('saveTheme')
+      },
+      addList () {
+        this.hiddenList()
+        this.maskShow = true
+        this.alertShow = true
+      },
+      cancelAddList () {
+        this.maskShow = false
+        this.alertShow = false
+      },
+      addListOk () {
+        this.maskShow = false
+        this.alertShow = false
+        this.$store.commit('addList', this.$refs.alert.value)
       }
     },
     components: {
       vheader,
       categorie,
       addbutton,
-      theme
+      theme,
+      colorblock,
+      alert
     }
   }
 </script>
@@ -108,6 +142,13 @@
     position: relative
     width: 100%
     height: 100%
+    .alert-wrapper
+      width: 100%
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      z-index: 101
     .mask
       position: absolute
       left: 0
@@ -135,18 +176,23 @@
           li
             .list-item
               display: flex
-              height: 96px
-              border-top: 1px solid #fbd16d
-              border-bottom: 1px solid #fbd16d            
-              background: #fbd579
+              height: 96px          
               line-height: 98px
+              color: #000
+              &.active
+                background: #fbd579
+                color: #fff
               .list-theme
+                position: relative
                 width: 116px
-                height: 100%
+                .color-block-wrapper
+                  position: absolute
+                  left: 50%
+                  top: 50%
+                  transform: translate(-50%, -50%)
               .list-name
                 flex: 1
                 font-size: 30px
-                color: #fff
                 text-indent: 36px  
               .list-count
                 width: 104px
