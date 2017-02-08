@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './vuex/store'
+
 import { adapt } from 'src/tool/initRem'
 
 // 设置设计稿的尺寸为750，1rem = 100px
@@ -16,6 +18,7 @@ import 'src/assets/style.styl'
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

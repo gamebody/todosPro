@@ -4,15 +4,29 @@
     <div class="home-list" id="js_show">
     </div>
     <div class="mask" @click="hiddenList($event)" v-show="maskShow"></div>
+
+    <div class="home-content">
+      <div class="categoire-wrapper" v-for="item in categories">
+        <categorie
+          :categorie-name="item.categorieName"></categorie>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   import vheader from 'components/header/header'
+  import categorie from 'components/categorie'
+
   export default {
     data () {
       return {
         maskShow: false
+      }
+    },
+    computed: {
+      categories () {
+        return this.$store.state.lists[0].categories
       }
     },
     methods: {
@@ -26,7 +40,8 @@
       }
     },
     components: {
-      vheader
+      vheader,
+      categorie
     }
   }
 </script>
@@ -54,4 +69,14 @@
       background: #fbd579
       transform: translate(-100%)
       transition: all .3s ease-in-out
+    .home-content
+      position: absolute
+      left: 0
+      right: 0
+      top: 118px
+      bottom: 0
+      .categoire-wrapper
+        display: inline-block
+        width: 50%
+        height: 50%
 </style>
