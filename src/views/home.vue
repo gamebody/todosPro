@@ -8,7 +8,8 @@
     <div class="home-content">
       <div class="categoire-wrapper" v-for="item in categories">
         <categorie
-          :categorie-name="item.categorieName"></categorie>
+          :categorie-name="item.categorieName"
+          :background-color="item.backgroundColor"></categorie>
       </div>
     </div>
   </div>

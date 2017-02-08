@@ -1,5 +1,5 @@
 <template>
-  <div class="categorie">
+  <div class="categorie" :style="{backgroundColor: backgroundColor}">
     <div class="categorie-name">
       <span>{{ categorieName }}</span>
     </div>
@@ -17,6 +17,10 @@
       categorieName: {
         type: String,
         default: 'FCOUS'
+      },
+      backgroundColor: {
+        type: String,
+        default: '#00838f'
       }
     },
     components: {
@@ -38,7 +42,7 @@
       text-align: center
       span
         font-size: 40px
-        color: #000
+        color: #fff
         font-weight: bold
     .categorie-content
       flex: 1

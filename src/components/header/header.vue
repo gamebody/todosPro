@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" :style="{backgroundColor: backgroundColor}">
     <div class="header-left" @click="showList">
       <span class="icon-list"></span>
     </div>
@@ -17,6 +17,12 @@
 
 <script>
   export default {
+    props: {
+      backgroundColor: {
+        type: String,
+        default: '#fff'
+      }
+    },
     methods: {
       showList () {
         this.$emit('showList')
@@ -31,7 +37,6 @@
     width: 100%
     height: 118px
     line-height: 118px    
-    background: #ccc
     color: #474747
     text-align: center
     font-size: 50px
