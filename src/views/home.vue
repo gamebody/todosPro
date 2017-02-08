@@ -87,9 +87,11 @@
       },
       cancelTheme () {
         this.toggleShowTheme()
+        this.$store.commit('cancelTheme')
       },
       saveTheme () {
         this.toggleShowTheme()
+        this.$store.commit('saveTheme')
       }
     },
     components: {

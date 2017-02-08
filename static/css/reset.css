@@ -60,7 +60,7 @@ li {
 
 ::-webkit-scrollbar {
     width: 0px;
-    height: 5px;
+    height: 0px;
 }
 
 ::-webkit-scrollbar-track-piece {
