@@ -10,12 +10,17 @@
       <span class="icon-sort"></span>
     </div>
     <div class="header-right">
-      <span class="icon-more"></span>
+      <span class="icon-more" @click="toggleToolList"></span>
     </div>
-  </div>
+    <div class="tool-list-wrapper" v-show="toolListShow">
+      <toollist v-on:changeTheme="changeTheme"></toollist>
+    </div>
+  </div>  
 </template>
 
 <script>
+  import toollist from 'components/toollist'
+
   export default {
     props: {
       backgroundColor: {
@@ -23,10 +28,25 @@
         default: '#fff'
       }
     },
+    data () {
+      return {
+        toolListShow: false
+      }
+    },
     methods: {
       showList () {
         this.$emit('showList')
+      },
+      toggleToolList () {
+        this.toolListShow = !this.toolListShow
+      },
+      changeTheme () {
+        this.toggleToolList()
+        this.$emit('showTheme')
       }
+    },
+    components: {
+      toollist
     }
   }
 </script>
@@ -55,4 +75,9 @@
       width: 100px
     .header-right
       width: 100px
+    .tool-list-wrapper
+      position: absolute
+      z-index: 100
+      right: 5px
+      top: 5px
 </style>
