@@ -11,6 +11,9 @@
           :categorie-name="item.categorieName"
           :background-color="item.backgroundColor"></categorie>
       </div>
+      <div class="add-button-wrapper">
+        <addbutton></addbutton>
+      </div>
     </div>
   </div>
 </template>
@@ -18,6 +21,7 @@
 <script>
   import vheader from 'components/header/header'
   import categorie from 'components/categorie'
+  import addbutton from 'components/addbutton'
 
   export default {
     data () {
@@ -42,7 +46,8 @@
     },
     components: {
       vheader,
-      categorie
+      categorie,
+      addbutton
     }
   }
 </script>
@@ -80,4 +85,9 @@
         display: inline-block
         width: 50%
         height: 50%
+      .add-button-wrapper
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
 </style>
