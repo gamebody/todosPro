@@ -179,5 +179,10 @@ export default new Vuex.Store({
       }
       lists.push(list)
     }
+  },
+  getters: {
+    currentList ({lists}) {
+      return lists.filter((list) => list.isCurrent)[0]
+    }
   }
 })

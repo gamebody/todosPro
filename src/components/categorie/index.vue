@@ -4,7 +4,9 @@
       <span>{{ categorieName }}</span>
     </div>
     <div class="categorie-content">
-      <circler></circler>     
+      <circler
+        :border-color="borderColor"
+        :count="count"></circler>     
     </div>
   </div>
 </template>
@@ -21,6 +23,21 @@
       backgroundColor: {
         type: String,
         default: '#00838f'
+      },
+      borderColor: {
+        type: String,
+        default: '#cac2b4'
+      },
+      todos: {
+        type: Array,
+        default: function () {
+          return []
+        }
+      }
+    },
+    computed: {
+      count () {
+        return this.todos.filter((todo) => !todo.isFinished).length
       }
     },
     components: {

@@ -1,14 +1,25 @@
 <template>
   <div class="circle">
-    <div class="inner">
-      <p>11</p>
+    <div class="inner" :style="{borderColor: borderColor}">
+      <p>{{ count }}</p>
       <span>to go</span>
     </div>
   </div>
 </template>
 
 <script>
-  export default {}
+  export default {
+    props: {
+      count: {
+        type: Number,
+        default: 0
+      },
+      borderColor: {
+        type: String,
+        default: '#cac2b4'
+      }
+    }
+  }
 </script>
 
 <style lang='stylus'>

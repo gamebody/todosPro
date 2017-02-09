@@ -2,7 +2,9 @@
   <div class="home">
     <vheader
       v-on:showList="showList"
-      v-on:showTheme="toggleShowTheme"></vheader>
+      v-on:showTheme="showTheme"></vheader>
+    
+    // 侧边栏组件
     <div class="home-list" id="js_show">
       <div class="home-list-header">
 
@@ -21,7 +23,7 @@
                   <p>{{ list.listName }}</p>
                 </div>
                 <div class="list-count">
-                  <span>11</span>
+                  <span>{{ list.unfinishedCount }}</span>
                 </div>
               </div>
           </li> 
@@ -36,19 +38,28 @@
         </div>
       </div>
     </div>
-    <div class="mask" @click="hiddenList" v-show="maskShow"></div>
+
+    // mask组件
+    <div class="maskk-wrapper" @click="hiddenAll" v-show="maskShow">
+      <maskk
+        :transparent="maskTransparent"></maskk>
+    </div>
+    
 
     <div class="home-content">
-      <div class="categoire-wrapper" v-for="item in categories">
+      <div class="categoire-wrapper" v-for="list in currentList.categories">
         <categorie
-          :categorie-name="item.categorieName"
-          :background-color="item.backgroundColor"></categorie>
+          :categorie-name="list.categorieName"
+          :background-color="list.backgroundColor"
+          :border-color="list.circleColor"
+          :todos="list.todos"></categorie>
       </div>
 
       <div class="add-button-wrapper">
         <addbutton></addbutton>
       </div>
 
+      // theme组件 
       <div class="theme-wrapper" v-show="themeShow">
         <theme
           v-on:cancel="cancelTheme"
@@ -73,56 +84,80 @@
   import theme from 'components/theme'
   import colorblock from 'components/colorblock'
   import alert from 'components/alert'
+  import maskk from 'components/mask'
 
   export default {
     data () {
       return {
         maskShow: false,
         themeShow: false,
-        alertShow: false
+        alertShow: false,
+        maskTransparent: false
       }
     },
     computed: {
-      categories () {
-        return this.$store.state.lists[0].categories
+      currentList () {
+        return this.$store.getters.currentList
       },
       lists () {
-        return this.$store.state.lists
+        const lists = this.$store.state.lists
+        const arr = []
+
+        lists.forEach((list) => {
+          let obj = {
+            isCurrent: list.isCurrent,
+            listName: list.listName,
+            themeName: list.themeName,
+            unfinishedCount: 0
+          }
+          list.categories.forEach((categorie) => {
+            categorie.todos.forEach((todo) => {
+              if (!todo.isFinished) {
+                obj.unfinishedCount++
+              }
+            })
+          })
+          arr.push(obj)
+        })
+
+        return arr
       }
     },
     methods: {
-      hiddenList () {
-        this.maskShow = false
+      hiddenAll () {
+        this.themeShow = false
         this.alertShow = false
+        this.maskShow = false
+        this.maskTransparent = false
         document.getElementById('js_show').style.transform = 'translate(-100%)'
       },
       showList () {
         this.maskShow = true
         document.getElementById('js_show').style.transform = 'translate(0)'
       },
-      toggleShowTheme () {
-        this.themeShow = !this.themeShow
+      showTheme () {
+        this.maskShow = true
+        this.themeShow = true
+        this.maskTransparent = true
       },
       cancelTheme () {
-        this.toggleShowTheme()
+        this.hiddenAll()
         this.$store.commit('cancelTheme')
       },
       saveTheme () {
-        this.toggleShowTheme()
+        this.hiddenAll()
         this.$store.commit('saveTheme')
       },
       addList () {
-        this.hiddenList()
+        this.hiddenAll()
         this.maskShow = true
         this.alertShow = true
       },
       cancelAddList () {
-        this.maskShow = false
-        this.alertShow = false
+        this.hiddenAll()
       },
       addListOk () {
-        this.maskShow = false
-        this.alertShow = false
+        this.hiddenAll()
         this.$store.commit('addList', this.$refs.alert.value)
       }
     },
@@ -132,7 +167,8 @@
       addbutton,
       theme,
       colorblock,
-      alert
+      alert,
+      maskk
     }
   }
 </script>
@@ -149,14 +185,6 @@
       left: 50%
       transform: translate(-50%, -50%)
       z-index: 101
-    .mask
-      position: absolute
-      left: 0
-      top: 0
-      z-index: 100
-      width: 100%
-      height: 100%
-      background: rgba(0, 0, 0, .6)
     .home-list
       position: absolute
       top: 0
@@ -233,5 +261,6 @@
         position: absolute
         bottom: 0
         width: 100%
+        z-index: 300
       
 </style>
