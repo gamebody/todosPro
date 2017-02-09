@@ -60,6 +60,7 @@
       },
       deleteList () {
         this.toggleToolList()
+        this.$emit('deleteList')
       },
       renameCategories () {
         this.toggleToolList()

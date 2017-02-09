@@ -4,7 +4,8 @@
       :list-name="listName"
       @showList="showList"
       @showTheme="showTheme"
-      @renameList="showAlert"></vheader>
+      @renameList="showAlert('rename')"
+      @deleteList="showAlert('deleteList')"></vheader>
     
     // 侧边栏组件
     <div class="home-list" id="js_show">
@@ -76,6 +77,7 @@
         @cancelAlert="cancelAlert"
         @addListOk="addListOk"
         @rename="rename"
+        @deleteList="deleteList"
         :operation="operation"
         ref="alert"></alert>
     </div>
@@ -174,14 +176,18 @@
       selectList (list) {
         this.$store.commit('selectList', list)
       },
-      showAlert () {
+      showAlert (operation) {
         this.hiddenAll()
         this.maskShow = true
         this.alertShow = true
-        this.operation = 'rename'
+        this.operation = operation
       },
       rename () {
         this.$store.commit('rename', this.$refs.alert.value)
+        this.hiddenAll()
+      },
+      deleteList () {
+        this.$store.commit('deleteList')
         this.hiddenAll()
       }
     },

@@ -1,7 +1,7 @@
 <template>
   <div class='alert'>
     <div class="alert-header">{{ text.headerText }}</div>
-    <div class="alert-content">
+    <div class="alert-content" v-show="operation !== 'deleteList'">
       <input type="text" v-model="value" placeholder="ListName">  
     </div>
     <div class="alert-footer">
@@ -60,7 +60,7 @@
         this.$emit('cancelAlert')
       },
       ok () {
-        if (this.value.length === 0) {
+        if (this.value.length === 0 && this.operation !== 'deleteList') {
           return
         }
         if (this.operation === 'addList') {
@@ -68,6 +68,7 @@
         } else if (this.operation === 'rename') {
           this.$emit('rename')
         } else {
+          console.log('1')
           this.$emit('deleteList')
         }
       }

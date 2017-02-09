@@ -208,6 +208,14 @@ export default new Vuex.Store({
           list.listName = newName
         }
       })
+    },
+    deleteList (state) {
+      for (let [index, value] of state.lists.entries()) {
+        if (value.isCurrent) {
+          state.lists.splice(index, 1)
+        }
+      }
+      state.lists[0].isCurrent = true
     }
   },
   getters: {
