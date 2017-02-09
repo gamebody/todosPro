@@ -5,9 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    currentId: 0,
     lists: [
       {
-        listName: 'hahaha',
+        listName: 'main',
+        id: 0,
         themeName: 'CLASSIC',
         isCurrent: true,
         categories: [
@@ -142,12 +144,15 @@ export default new Vuex.Store({
         }
       })
     },
-    addList ({ lists }, name) {
-      lists.forEach((list) => {
+    addList (state, name) {
+      state.currentId++
+
+      state.lists.forEach((list) => {
         list.isCurrent = false
       })
       const list = {
         listName: name,
+        id: state.currentId,
         themeName: 'CLASSIC',
         isCurrent: true,
         categories: [
@@ -177,7 +182,15 @@ export default new Vuex.Store({
           }
         ]
       }
-      lists.push(list)
+      state.lists.push(list)
+    },
+    selectList ({ lists }, computedList) {
+      lists.forEach((list) => {
+        list.isCurrent = false
+        if (list.id === computedList.id) {
+          list.isCurrent = true
+        }
+      })
     }
   },
   getters: {

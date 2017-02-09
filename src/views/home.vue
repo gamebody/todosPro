@@ -11,7 +11,7 @@
       </div>
       <div class="home-list-content">
         <ul>
-          <li v-for="list in lists">
+          <li v-for="list in lists" @click="selectList(list)">
               <div class="list-item" :class="{active: list.isCurrent}">
                 <div class="list-theme">
                   <div class="color-block-wrapper">
@@ -28,6 +28,7 @@
               </div>
           </li> 
         </ul>
+
         <div class="add-list" @click="addList">
           <div class="add-list-icon">
             <span class="icon-add"></span>
@@ -105,6 +106,7 @@
 
         lists.forEach((list) => {
           let obj = {
+            id: list.id,
             isCurrent: list.isCurrent,
             listName: list.listName,
             themeName: list.themeName,
@@ -159,6 +161,10 @@
       addListOk () {
         this.hiddenAll()
         this.$store.commit('addList', this.$refs.alert.value)
+        this.$refs.alert.value = ''
+      },
+      selectList (list) {
+        this.$store.commit('selectList', list)
       }
     },
     components: {
