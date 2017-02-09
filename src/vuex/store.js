@@ -10,7 +10,7 @@ export default new Vuex.Store({
       {
         listName: 'main',
         id: 0,
-        themeName: 'CLASSIC',
+        themeName: 'I LIKE',
         isCurrent: true,
         categories: [
           {
@@ -69,7 +69,7 @@ export default new Vuex.Store({
         name: 'CLASSIC',
         backgroundColors: ['#EE5148', '#00BAD5', '#FFAE27', '#00BEA4'],
         circleColors: ['#CE4342', '#CBE7EF', '#CA8E1C', '#008D77'],
-        isCurrent: true
+        isCurrent: false
       },
       {
         name: 'I LIKE',
@@ -104,6 +104,14 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
+    changeThemeCurrent (state, themeName) {
+      state.themes.forEach((theme) => {
+        theme.isCurrent = false
+        if (theme.name === themeName) {
+          theme.isCurrent = true
+        }
+      })
+    },
     changeCurrent ({ themes, lists }, selectTheme) {
       themes.forEach((theme) => {
         theme.isCurrent = false

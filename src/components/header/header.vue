@@ -49,6 +49,8 @@
         this.toolListShow = !this.toolListShow
       },
       changeTheme () {
+        const themeName = this.$store.getters.currentList.themeName
+        this.$store.commit('changeThemeCurrent', themeName)
         this.toggleToolList()
         this.$emit('showTheme')
       },
