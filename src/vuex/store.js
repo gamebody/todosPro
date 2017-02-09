@@ -105,7 +105,6 @@ export default new Vuex.Store({
   },
   mutations: {
     changeCurrent ({ themes, lists }, selectTheme) {
-      let i = 0
       themes.forEach((theme) => {
         theme.isCurrent = false
         if (theme === selectTheme) {
@@ -114,8 +113,11 @@ export default new Vuex.Store({
       })
       lists.forEach((list) => {
         if (list.isCurrent) {
+          let i = 0
           list.categories.forEach((categorie) => {
-            categorie.backgroundColor = selectTheme.backgroundColors[i++]
+            categorie.backgroundColor = selectTheme.backgroundColors[i]
+            categorie.circleColor = selectTheme.circleColors[i]
+            i++
           })
         }
       })
