@@ -26,6 +26,9 @@
         this.$emit('cancelAddList')
       },
       add () {
+        if (this.value.length === 0) {
+          return
+        }
         this.$emit('addListOk')
       }
     }
@@ -38,7 +41,7 @@
     width: 86%
     padding: 50px
     border: 1px solid #e0e6e6
-    border-radius: 1px
+    border-radius: 6px
     background: #fff
     margin: 0 auto
     .alert-header
@@ -51,7 +54,7 @@
       font-size: 0px
       input
         width: 100%
-        height: 58px
+        height: 50px
         margin-bottom: 94px
         border-bottom: 4px solid #c7c7c7
         outline: none

@@ -13,7 +13,11 @@
       <span class="icon-more" @click="toggleToolList"></span>
     </div>
     <div class="tool-list-wrapper" v-show="toolListShow">
-      <toollist v-on:changeTheme="changeTheme"></toollist>
+      <toollist 
+        @changeTheme="changeTheme"
+        @renameList="renameList"
+        @deleteList="deleteList"
+        @renameCategories="renameCategories"></toollist>
     </div>
   </div>  
 </template>
@@ -43,6 +47,15 @@
       changeTheme () {
         this.toggleToolList()
         this.$emit('showTheme')
+      },
+      renameList () {
+        this.toggleToolList()
+      },
+      deleteList () {
+        this.toggleToolList()
+      },
+      renameCategories () {
+        this.toggleToolList()
       }
     },
     components: {

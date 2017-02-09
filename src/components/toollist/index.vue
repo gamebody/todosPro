@@ -1,10 +1,10 @@
 <template>
   <div class='tool-list'>
     <ul>
-      <li @click="changeTheme">Change Theme</li>
-      <li>Rename List</li>
-      <li>Delete List</li>
-      <li>Rename Categories</li>
+      <li @click="change('changeTheme')">Change Theme</li>
+      <li @click="change('renameList')">Rename List</li>
+      <li @click="change('deleteList')">Delete List</li>
+      <li @click="change('renameCategories')">Rename Categories</li>
     </ul>
   </div>
 </template>
@@ -12,8 +12,8 @@
 <script>
   export default {
     methods: {
-      changeTheme () {
-        this.$emit('changeTheme')
+      change (sign) {
+        this.$emit(sign)
       }
     }
   }
