@@ -5,7 +5,8 @@
       @showList="showList"
       @showTheme="showTheme"
       @renameList="showAlert('rename')"
-      @deleteList="showAlert('deleteList')"></vheader>
+      @deleteList="showAlert('deleteList')"
+      @renameCategories="renameCategories"></vheader>
     
     // 侧边栏组件
     <div class="home-list" id="js_show">
@@ -63,7 +64,6 @@
         <addbutton></addbutton>
       </div>
 
-      // theme组件 
       <div class="theme-wrapper" v-show="themeShow">
         <theme
           v-on:cancel="cancelTheme"
@@ -184,6 +184,11 @@
       deleteList () {
         this.$store.commit('deleteList')
         this.hiddenAll()
+      },
+      renameCategories () {
+        this.$router.push({
+          name: 'renameCategories'
+        })
       }
     },
     components: {

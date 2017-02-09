@@ -1,16 +1,17 @@
 <template>
   <div class="header" :style="{backgroundColor: backgroundColor}">
     <div class="header-left" @click="showList">
-      <span class="icon-list"></span>
+      <span :class="'icon-' + icon"></span>
     </div>
     <div class="header-content">
       <span>{{ listName }}</span>
     </div>
-    <div class="header-sort">
+    <div class="header-sort" v-if="save">
       <span class="icon-sort"></span>
     </div>
     <div class="header-right">
-      <span class="icon-more" @click="toggleToolList"></span>
+      <span class="icon-more" @click="toggleToolList" v-if="save"></span>
+      <span v-else class="save">SAVE</span>
     </div>
     <div class="tool-list-wrapper" v-show="toolListShow">
       <toollist 
@@ -34,6 +35,14 @@
       listName: {
         type: String,
         default: ''
+      },
+      icon: {
+        type: String,
+        default: 'list'
+      },
+      save: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
@@ -64,6 +73,7 @@
       },
       renameCategories () {
         this.toggleToolList()
+        this.$emit('renameCategories')
       }
     },
     components: {
@@ -96,6 +106,9 @@
       width: 100px
     .header-right
       width: 100px
+      .save
+        font-size: 24px
+        vertical-align: top
     .tool-list-wrapper
       position: absolute
       z-index: 100

@@ -9,6 +9,11 @@ export default new Router({
       path: '/',
       name: 'Hello',
       component: require('src/views/home')
+    },
+    {
+      path: '/renameCategories',
+      name: 'renameCategories',
+      component: require('src/views/renameCategories')
     }
   ]
 })
