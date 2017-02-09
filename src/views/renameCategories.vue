@@ -4,26 +4,28 @@
       <vheader
         list-name="Categories"
         icon="back"
-        :save="false"></vheader>
+        :save="false"
+        @goBack="goBack"
+        @saved="saved"></vheader>
     </div>
 
     <div class="renameCategories-content">
       <ul>
-        <li>
+        <li v-for="(categorie,index) in currentList.categories" :style="{backgroundColor: categorie.backgroundColor}">
           <div class="left">
             <div class="categorie-block-circle">
               <div class="position-wrapper">
                 <categorie-block
-                  color="#00838f"
+                  :color="categorie.backgroundColor"
                   wdith="big"
-                  position="2"></categorie-block>
+                  :position="index + 1"></categorie-block>
               </div>
             </div> 
           </div>
           <div class="right">
-            <p>IMPORTANT</p>
-            <input type="text" v-model="msg">
-            <div>{{ count }} characters left</div>
+            <p>{{ info[index] }}</p>
+            <input type="text" :value='inputValues[index]'>
+            <div>{{ inputLength -  inputValues[index].length }} characters left</div>
           </div>
         </li>
       </ul>
@@ -43,12 +45,39 @@
           'IMPORTANT BUT NOT URGENT',
           'URGENT BUT NOT IMPORTANT',
           'NOT IMPORTANT OR URGENT'
-        ]
+        ],
+        inputLength: 10,
+        left: false,
+        inputValues: []
+      }
+    },
+    computed: {
+      currentList () {
+        return this.$store.getters.currentList
+      }
+    },
+    methods: {
+      goBack () {
+        this.$router.go(-1)
+      },
+      saved () {
+        const oinputs = document.getElementsByTagName('input')
+        const arr = []
+        Array.from(oinputs).forEach((input) => {
+          arr.push(input.value)
+        })
+        this.$store.commit('changeCategorieName', arr)
+        this.goBack()
       }
     },
     components: {
       vheader,
       categorieBlock
+    },
+    created () {
+      this.$store.getters.currentList.categories.forEach((categorie) => {
+        this.inputValues.push(categorie.categorieName)
+      })
     }
   }
 </script>
@@ -66,7 +95,6 @@
           width: 100%
           height: 200px
           padding-bottom: 39px
-          background-color: #00838f
           padding-right: 40px
           .left
             width: 175px

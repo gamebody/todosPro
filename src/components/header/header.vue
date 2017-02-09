@@ -1,6 +1,6 @@
 <template>
   <div class="header" :style="{backgroundColor: backgroundColor}">
-    <div class="header-left" @click="showList">
+    <div class="header-left" @click="clickLeft">
       <span :class="'icon-' + icon"></span>
     </div>
     <div class="header-content">
@@ -11,7 +11,7 @@
     </div>
     <div class="header-right">
       <span class="icon-more" @click="toggleToolList" v-if="save"></span>
-      <span v-else class="save">SAVE</span>
+      <span v-else class="save" @click="saved">SAVE</span>
     </div>
     <div class="tool-list-wrapper" v-show="toolListShow">
       <toollist 
@@ -51,8 +51,12 @@
       }
     },
     methods: {
-      showList () {
-        this.$emit('showList')
+      clickLeft () {
+        if (this.icon === 'back') {
+          this.$emit('goBack')
+        } else {
+          this.$emit('showList')
+        }
       },
       toggleToolList () {
         this.toolListShow = !this.toolListShow
@@ -74,6 +78,9 @@
       renameCategories () {
         this.toggleToolList()
         this.$emit('renameCategories')
+      },
+      saved () {
+        this.$emit('saved')
       }
     },
     components: {

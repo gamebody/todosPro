@@ -216,6 +216,16 @@ export default new Vuex.Store({
         }
       }
       state.lists[0].isCurrent = true
+    },
+    changeCategorieName (state, arr) {
+      let i = 0
+      state.lists.forEach((list) => {
+        if (list.isCurrent) {
+          list.categories.forEach((categorie) => {
+            categorie.categorieName = arr[i++]
+          })
+        }
+      })
     }
   },
   getters: {
