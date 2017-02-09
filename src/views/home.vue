@@ -32,7 +32,7 @@
           </li> 
         </ul>
 
-        <div class="add-list" @click="addList">
+        <div class="add-list" @click="showAlert('addList')">
           <div class="add-list-icon">
             <span class="icon-add"></span>
           </div>
@@ -159,11 +159,6 @@
       saveTheme () {
         this.hiddenAll()
         this.$store.commit('saveTheme')
-      },
-      addList () {
-        this.hiddenAll()
-        this.maskShow = true
-        this.alertShow = true
       },
       cancelAlert () {
         this.hiddenAll()
