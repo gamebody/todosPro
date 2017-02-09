@@ -1,8 +1,10 @@
 <template>
   <div class="home">
     <vheader
-      v-on:showList="showList"
-      v-on:showTheme="showTheme"></vheader>
+      :list-name="listName"
+      @showList="showList"
+      @showTheme="showTheme"
+      @renameList="showAlert"></vheader>
     
     // 侧边栏组件
     <div class="home-list" id="js_show">
@@ -71,8 +73,10 @@
 
     <div class="alert-wrapper" v-show="alertShow">
       <alert
-        v-on:cancelAddList="cancelAddList"
-        v-on:addListOk="addListOk"
+        @cancelAlert="cancelAlert"
+        @addListOk="addListOk"
+        @rename="rename"
+        :operation="operation"
         ref="alert"></alert>
     </div>
   </div>
@@ -93,7 +97,8 @@
         maskShow: false,
         themeShow: false,
         alertShow: false,
-        maskTransparent: false
+        maskTransparent: false,
+        operation: 'addList'
       }
     },
     computed: {
@@ -123,6 +128,9 @@
         })
 
         return arr
+      },
+      listName () {
+        return this.$store.getters.currentList.listName
       }
     },
     methods: {
@@ -155,7 +163,7 @@
         this.maskShow = true
         this.alertShow = true
       },
-      cancelAddList () {
+      cancelAlert () {
         this.hiddenAll()
       },
       addListOk () {
@@ -165,6 +173,16 @@
       },
       selectList (list) {
         this.$store.commit('selectList', list)
+      },
+      showAlert () {
+        this.hiddenAll()
+        this.maskShow = true
+        this.alertShow = true
+        this.operation = 'rename'
+      },
+      rename () {
+        this.$store.commit('rename', this.$refs.alert.value)
+        this.hiddenAll()
       }
     },
     components: {

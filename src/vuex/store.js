@@ -193,6 +193,13 @@ export default new Vuex.Store({
           list.isCurrent = true
         }
       })
+    },
+    rename (state, newName) {
+      state.lists.forEach((list) => {
+        if (list.isCurrent) {
+          list.listName = newName
+        }
+      })
     }
   },
   getters: {

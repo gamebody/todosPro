@@ -4,7 +4,7 @@
       <span class="icon-list"></span>
     </div>
     <div class="header-content">
-      <span>haha</span>
+      <span>{{ listName }}</span>
     </div>
     <div class="header-sort">
       <span class="icon-sort"></span>
@@ -30,6 +30,10 @@
       backgroundColor: {
         type: String,
         default: '#fff'
+      },
+      listName: {
+        type: String,
+        default: ''
       }
     },
     data () {
@@ -50,6 +54,7 @@
       },
       renameList () {
         this.toggleToolList()
+        this.$emit('renameList')
       },
       deleteList () {
         this.toggleToolList()

@@ -1,13 +1,13 @@
 <template>
   <div class='alert'>
-    <div class="alert-header">Add New List</div>
+    <div class="alert-header">{{ text.headerText }}</div>
     <div class="alert-content">
       <input type="text" v-model="value" placeholder="ListName">  
     </div>
     <div class="alert-footer">
       <div class="btn-wrapper">
         <button @click="cancel">Cancel</button>
-        <button @click="add">Add</button>
+        <button @click="ok">{{ text.okText }}</button>
       </div>    
     </div>
   </div>
@@ -15,21 +15,61 @@
 
 <script>
   export default {
+    props: {
+      operation: {
+        type: String, // addList || rename || deleteList
+        default: 'addList'
+      }
+    },
     data () {
       return {
         value: ''
       }
     },
+    computed: {
+      text () {
+        let headerText = ''
+        let okText = ''
+        switch (this.operation) {
+          case 'addList':
+            headerText = 'Add New List'
+            okText = 'Add'
+            break
+          case 'rename':
+            headerText = 'Rename List'
+            okText = 'Rename'
+            break
+          case 'deleteList':
+            headerText = 'Delete this list and all of its tasks?'
+            okText = 'Delete'
+            break
+          default:
+            headerText = 'Add New List'
+            okText = 'Add'
+            break
+        }
+        return {
+          headerText: headerText,
+          okText: okText
+        }
+      }
+    },
     methods: {
       cancel () {
         this.value = ''
-        this.$emit('cancelAddList')
+        this.$emit('cancelAlert')
       },
-      add () {
+      ok () {
         if (this.value.length === 0) {
           return
         }
-        this.$emit('addListOk')
+        if (this.operation === 'addList') {
+          this.$emit('addListOk')
+        } else if (this.operation === 'rename') {
+          this.$emit('rename')
+        } else {
+          this.$emit('deleteList')
+        }
       }
     }
   }
