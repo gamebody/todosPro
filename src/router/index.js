@@ -14,6 +14,11 @@ export default new Router({
       path: '/renameCategories',
       name: 'renameCategories',
       component: require('src/views/renameCategories')
+    },
+    {
+      path: '/todos/:categorie',
+      name: 'categorie',
+      component: require('src/views/categorie')
     }
   ]
 })

@@ -8,7 +8,7 @@
       @deleteList="showAlert('deleteList')"
       @renameCategories="renameCategories"></vheader>
     
-    // 侧边栏组件
+    
     <div class="home-list" id="js_show">
       <div class="home-list-header">
 
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    // mask组件
+    
     <div class="maskk-wrapper" @click="hiddenAll" v-show="maskShow">
       <maskk
         :transparent="maskTransparent"></maskk>
@@ -52,12 +52,13 @@
     
 
     <div class="home-content">
-      <div class="categoire-wrapper" v-for="list in currentList.categories">
+      <div class="categoire-wrapper" v-for="categorie in currentList.categories"
+        @click="goViewCategorie(categorie)">
         <categorie
-          :categorie-name="list.categorieName"
-          :background-color="list.backgroundColor"
-          :border-color="list.circleColor"
-          :todos="list.todos"></categorie>
+          :categorie-name="categorie.categorieName"
+          :background-color="categorie.backgroundColor"
+          :border-color="categorie.circleColor"
+          :todos="categorie.todos"></categorie>
       </div>
 
       <div class="add-button-wrapper">
@@ -188,6 +189,14 @@
       renameCategories () {
         this.$router.push({
           name: 'renameCategories'
+        })
+      },
+      goViewCategorie (categorie) {
+        this.$router.push({
+          name: 'categorie',
+          params: {
+            categorie: categorie
+          }
         })
       }
     },

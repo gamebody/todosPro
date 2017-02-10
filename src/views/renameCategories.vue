@@ -24,8 +24,8 @@
           </div>
           <div class="right">
             <p>{{ info[index] }}</p>
-            <input type="text" :value='inputValues[index]'>
-            <div>{{ inputLength -  inputValues[index].length }} characters left</div>
+            <input type="text" v-model="categorie.categorieName">
+            <div>{{ inputLength -  categorie.categorieName.length }} characters left</div>
           </div>
         </li>
       </ul>

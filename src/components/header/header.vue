@@ -1,5 +1,5 @@
 <template>
-  <div class="header" :style="{backgroundColor: backgroundColor}">
+  <div class="header" :style="{backgroundColor: backgroundColor, color: color}">
     <div class="header-left" @click="clickLeft">
       <span :class="'icon-' + icon"></span>
     </div>
@@ -31,6 +31,10 @@
       backgroundColor: {
         type: String,
         default: '#fff'
+      },
+      color: {
+        props: 'String',
+        default: '#474747'
       },
       listName: {
         type: String,

@@ -50,6 +50,7 @@
 <style lang='stylus'>
   .categorie
     display: flex
+    align-items: center
     flex-direction: column
     justify-content: center
     width: 100%
@@ -63,6 +64,5 @@
         font-weight: bold
     .categorie-content
       flex: 1
-      text-align: center
 
 </style>

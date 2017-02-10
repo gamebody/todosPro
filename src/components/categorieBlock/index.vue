@@ -2,7 +2,7 @@
   <div class='categorieBlock clear-f' :class="width">
     <div 
       v-for="index in 4" 
-      :style="{borderColor: color, backgroundColor: (index == position ? color : '')}"></div>
+      :style="{border: '1px solid ' + color, backgroundColor: (index == position ? color : '')}"></div>
   </div>
 </template>
 
