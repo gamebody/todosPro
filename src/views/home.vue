@@ -52,8 +52,8 @@
     
 
     <div class="home-content">
-      <div class="categoire-wrapper" v-for="categorie in currentList.categories"
-        @click="goViewCategorie(categorie)">
+      <div class="categoire-wrapper" v-for="(categorie, index) in currentList.categories"
+        @click="goViewCategorie(index)">
         <categorie
           :categorie-name="categorie.categorieName"
           :background-color="categorie.backgroundColor"
@@ -191,11 +191,11 @@
           name: 'renameCategories'
         })
       },
-      goViewCategorie (categorie) {
+      goViewCategorie (index) {
         this.$router.push({
           name: 'categorie',
           params: {
-            categorie: categorie
+            index
           }
         })
       }

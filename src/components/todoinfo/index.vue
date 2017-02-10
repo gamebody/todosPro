@@ -10,24 +10,24 @@
     </div>
     <div class="todoinfo-banner"></div>
     <div class="todoinfo-content">
-      <p class="text">好好过</p>
-      <div class="note">
+      <p class="text">{{ todo.text }}</p>
+      <div class="note" v-show="todo.note">
         <div class="note-header">
           <h6>NOTE</h6>
         </div>
         <div class="note-content">
-          <p>hello</p>
+          <p>{{ todo.note }}</p>
         </div>
       </div>
     </div>
     <div class="todoinfo-footer">
-      <div class="completed">
+      <div class="completed" @click="completed">
         <div class="icon">
           <span class="icon-back"></span>
         </div>
         <span>Completed</span>
       </div>
-      <div class="delete">
+      <div class="delete" @click="deletetodo">
         <div class="icon">
           <span class="icon-back"></span>
         </div>
@@ -38,7 +38,36 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    props: {
+      todo: {
+        type: Object,
+        default: function () {
+          return {}
+        }
+      },
+      index: {
+        type: Number,
+        default: 1
+      }
+    },
+    methods: {
+      completed () {
+        this.$store.commit('completed', {
+          categoriePosition: this.$route.params.index,
+          todoPosition: this.index
+        })
+        this.$emit('finished')
+      },
+      deletetodo () {
+        this.$store.commit('delete', {
+          categoriePosition: this.$route.params.index,
+          todoPosition: this.index
+        })
+        this.$emit('finished')
+      }
+    }
+  }
 </script>
 
 <style lang='stylus'>

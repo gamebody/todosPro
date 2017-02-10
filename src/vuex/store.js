@@ -227,6 +227,15 @@ export default new Vuex.Store({
           })
         }
       })
+    },
+    completed (state, {categoriePosition, todoPosition}) {
+      state.lists.filter((list) => list.isCurrent)[0].categories[categoriePosition].todos[todoPosition].completed = true
+    },
+    delete (state, {categoriePosition, todoPosition}) {
+      state.lists.filter((list) => list.isCurrent)[0].categories[categoriePosition].todos.splice(todoPosition, 1)
+    },
+    reset (state, {categoriePosition, todoPosition}) {
+      state.lists.filter((list) => list.isCurrent)[0].categories[categoriePosition].todos[todoPosition].completed = false
     }
   },
   getters: {

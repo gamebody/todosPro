@@ -2,14 +2,14 @@
   <div class='view-categorie'>
     <div class="header-wrapper">
       <vheader
-        :list-name="$route.params.categorie.categorieName"
+        :list-name="categorie.categorieName"
         icon="back"
         @goBack="goBack"
-        :backgroundColor="$route.params.categorie.backgroundColor"
+        :backgroundColor="categorie.backgroundColor"
         color="#fff"></vheader>
     </div>
 
-    <div class="view-categorie-data" :style="{backgroundColor: $route.params.categorie.backgroundColor}">
+    <div class="view-categorie-data" :style="{backgroundColor: categorie.backgroundColor}">
       <div class="left">
         <ul>
           <li><span>7</span> completed!</li>
@@ -20,7 +20,7 @@
       <div class="right">
         <div class="circle-wrapper">
           <vcircle
-            :borderColor="$route.params.categorie.circleColor"
+            :borderColor="categorie.circleColor"
             :size="1.35"
             :borderWidth="0.18"
             :fontSize="0.4"
@@ -31,8 +31,9 @@
     <div class="view-categorie-content">
       <ul>
         <li 
-          v-for="(todo,index) in $route.params.categorie.todos"
-          :style="{backgroundColor: todo.completed ? '#f4f4f4' : '#fff'}">
+          v-for="(todo,index) in categorie.todos"
+          :style="{backgroundColor: todo.completed ? '#f4f4f4' : '#fff'}"
+          @click="showTodoInfo(todo, index)">
           <div class="todo-text">
             <p 
               :style="{
@@ -52,12 +53,17 @@
         </li>
       </ul>
     </div>
-    <div class="addbutton-wrapper">
+
+    <div class="addbutton-wrapper" @click="goViewTodo">
       <addbutton
-        :backgroundColor="$route.params.categorie.backgroundColor"></addbutton>
+        :backgroundColor="categorie.backgroundColor"></addbutton>
     </div>
-    <div class="todoinfo-wrapper">
-      <todoinfo></todoinfo>
+
+    <div class="todoinfo-wrapper" v-show="todoinfoShow">
+      <todoinfo
+        :todo="currentTodo"
+        :index="currentIndex"
+        @finished="finished"></todoinfo>
     </div>
   </div>
 </template>
@@ -69,10 +75,34 @@
   import todoinfo from 'components/todoinfo'
 
   export default {
+    data () {
+      return {
+        todoinfoShow: false,
+        currentTodo: {},
+        currentIndex: 0
+      }
+    },
     methods: {
       goBack () {
         this.$router.go(-1)
+      },
+      showTodoInfo (todo, index) {
+        this.todoinfoShow = true
+        this.currentTodo = todo
+        this.currentIndex = index
+      },
+      finished () {
+        this.todoinfoShow = false
+      },
+      goViewTodo () {
+        this.$router.push({
+          name: 'todo'
+        })
       }
+    },
+    created () {
+      const index = this.$route.params.index
+      this.categorie = this.$store.getters.currentList.categories[index]
     },
     components: {
       vheader,
