@@ -30,13 +30,23 @@
     </div>
     <div class="view-categorie-content">
       <ul>
-        <li v-for="(todo,index) in $route.params.categorie.todos">
+        <li 
+          v-for="(todo,index) in $route.params.categorie.todos"
+          :style="{backgroundColor: todo.completed ? '#f4f4f4' : '#fff'}">
           <div class="todo-text">
-            <p>{{ todo.text }}</p>
-            <p><span>Today</span> at 下午12:15</p>
+            <p 
+              :style="{
+                textDecoration: todo.completed ? 'line-through' : 'none',
+                color: todo.completed ? '#a8a8a8' : '#6b6b6b'
+              }"
+              >{{ todo.text }}</p>
+            <p
+              v-show="todo.dueDate"><span>Today</span> at 下午12:15</p>
           </div>
           <div class="todo-note">
-            <span class="icon-note"></span>
+            <span
+              class="icon-note"
+              v-show="todo.note"></span>
           </div>
           
         </li>
@@ -46,6 +56,9 @@
       <addbutton
         :backgroundColor="$route.params.categorie.backgroundColor"></addbutton>
     </div>
+    <div class="todoinfo-wrapper">
+      <todoinfo></todoinfo>
+    </div>
   </div>
 </template>
 
@@ -53,6 +66,7 @@
   import vheader from 'components/header/header'
   import addbutton from 'components/addbutton'
   import vcircle from 'components/circle'
+  import todoinfo from 'components/todoinfo'
 
   export default {
     methods: {
@@ -63,7 +77,8 @@
     components: {
       vheader,
       addbutton,
-      vcircle
+      vcircle,
+      todoinfo
     }
   }
 </script>
@@ -92,6 +107,13 @@
         flex: 1
       .right
         width: 200px
+    .todoinfo-wrapper
+      position: absolute
+      top: 230px
+      left: 0
+      right: 0
+      bottom: 0
+      background: #fff
     .view-categorie-content
       position: absolute
       left: 0
@@ -110,13 +132,13 @@
             display: flex
             flex-direction: column
             flex: 1
-            padding: 23px 0
             p
               text-indent: 35px
               &:nth-child(1)
-                height: 47px
-                font-size: 30px
+                height: 48px
+                font-size: 32px
                 color: #6b6b6b
+                line-height: 48px
               &:nth-child(2)
                 flex: 1
                 font-size: 21px

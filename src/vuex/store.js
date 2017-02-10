@@ -19,9 +19,9 @@ export default new Vuex.Store({
             circleColor: '#cac2b4',
             todos: [
               {
-                text: '111',
+                text: '好好过',
                 completed: false,
-                dueDate: 0,
+                dueDate: 122,
                 note: ''
               },
               {
