@@ -96,7 +96,10 @@
       },
       goViewTodo () {
         this.$router.push({
-          name: 'todo'
+          name: 'todo',
+          params: {
+            index: this.$route.params.index
+          }
         })
       }
     },

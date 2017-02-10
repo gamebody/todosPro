@@ -33,8 +33,8 @@
       width: 58px
       height: 58px
     &.small
-      width: 30px
-      height: 30px
+      width: 36px
+      height: 36px
     div
       float: left
       box-sizing: border-box

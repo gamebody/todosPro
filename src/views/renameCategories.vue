@@ -15,10 +15,10 @@
           <div class="left">
             <div class="categorie-block-circle">
               <div class="position-wrapper">
-                <categorie-block
+                <categorieblock
                   :color="categorie.backgroundColor"
                   wdith="big"
-                  :position="index + 1"></categorie-block>
+                  :position="index + 1"></categorieblock>
               </div>
             </div> 
           </div>
@@ -35,7 +35,7 @@
 
 <script>
   import vheader from 'components/header/header'
-  import categorieBlock from 'components/categorieBlock'
+  import categorieblock from 'components/categorieblock'
   
   export default {
     data () {
@@ -72,7 +72,7 @@
     },
     components: {
       vheader,
-      categorieBlock
+      categorieblock
     },
     created () {
       this.$store.getters.currentList.categories.forEach((categorie) => {
