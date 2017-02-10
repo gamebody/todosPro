@@ -19,9 +19,28 @@ export default new Vuex.Store({
             circleColor: '#cac2b4',
             todos: [
               {
-                text: '',
-                isFinished: false,
-                time: 0
+                text: '111',
+                completed: false,
+                dueDate: 0,
+                note: ''
+              },
+              {
+                text: '222',
+                completed: false,
+                dueDate: 0,
+                note: ''
+              },
+              {
+                text: '333',
+                completed: false,
+                dueDate: 0,
+                note: ''
+              },
+              {
+                text: '4444',
+                completed: true,
+                dueDate: 0,
+                note: ''
               }
             ]
           },
@@ -29,37 +48,19 @@ export default new Vuex.Store({
             categorieName: 'GOALS',
             backgroundColor: '#f9c23b',
             circleColor: '#cac2b4',
-            todos: [
-              {
-                text: '',
-                isFinished: false,
-                time: 0
-              }
-            ]
+            todos: []
           },
           {
             categorieName: 'FIT IN',
             backgroundColor: '#d76055',
             circleColor: '#cac2b4',
-            todos: [
-              {
-                text: '',
-                isFinished: false,
-                time: 0
-              }
-            ]
+            todos: []
           },
           {
             categorieName: 'BACKBURNER',
             backgroundColor: '#687c94',
             circleColor: '#cac2b4',
-            todos: [
-              {
-                text: '',
-                isFinished: false,
-                time: 0
-              }
-            ]
+            todos: []
           }
         ]
       }

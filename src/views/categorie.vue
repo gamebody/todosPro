@@ -28,7 +28,20 @@
         </div>
       </div>
     </div>
-    <div class="view-categorie-content"></div>
+    <div class="view-categorie-content">
+      <ul>
+        <li v-for="(todo,index) in $route.params.categorie.todos">
+          <div class="todo-text">
+            <p>{{ todo.text }}</p>
+            <p><span>Today</span> at 下午12:15</p>
+          </div>
+          <div class="todo-note">
+            <span class="icon-note"></span>
+          </div>
+          
+        </li>
+      </ul>
+    </div>
     <div class="addbutton-wrapper">
       <addbutton
         :backgroundColor="$route.params.categorie.backgroundColor"></addbutton>
@@ -79,4 +92,42 @@
         flex: 1
       .right
         width: 200px
+    .view-categorie-content
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      top: 284px
+      overflow: auto
+      ul
+        li
+          display: flex
+          height: 116px
+          border-bottom: 1px solid #f6f6f6
+          border-top: 1px solid #ebebeb
+          align-items: center
+          .todo-text
+            display: flex
+            flex-direction: column
+            flex: 1
+            padding: 23px 0
+            p
+              text-indent: 35px
+              &:nth-child(1)
+                height: 47px
+                font-size: 30px
+                color: #6b6b6b
+              &:nth-child(2)
+                flex: 1
+                font-size: 21px
+                color: #868484
+                span
+                  color: #3ea942
+                  font-weight: bold
+          .todo-note
+            width: 66px
+            font-size: 0
+            span
+              font-size: 20px
+              color: #afafaf
 </style>
