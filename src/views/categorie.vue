@@ -9,12 +9,12 @@
         color="#fff"></vheader>
     </div>
 
-    <div class="view-categorie-data">
+    <div class="view-categorie-data" :style="{backgroundColor: $route.params.categorie.backgroundColor}">
       <div class="left">
         <ul>
-          <li>7 completed!</li>
-          <li>0 due today</li>
-          <li>0 overdue</li>
+          <li><span>7</span> completed!</li>
+          <li><span>0</span> due today</li>
+          <li><span>0</span> overdue</li>
         </ul>
       </div>
       <div class="right">
@@ -61,4 +61,22 @@
       position: fixed
       right: 44px
       bottom: 54px
+    .view-categorie-data
+      display: flex
+      height: 166px
+      font-size: 28px
+      color: #c7e4e7
+      ul
+        margin-left: 124px
+        li
+          line-height: 38px
+          span
+            font-size: 29px
+            color: #fff
+            font-weight: bold
+            text-shadow: 1px 1px 1px #007582
+      .left
+        flex: 1
+      .right
+        width: 200px
 </style>

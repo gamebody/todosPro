@@ -6,7 +6,8 @@
     <div class="categorie-content">
       <circler
         :border-color="borderColor"
-        :count="count"></circler>     
+        :count="count"
+        backgroundColor="#fff"></circler>     
     </div>
   </div>
 </template>

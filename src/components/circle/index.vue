@@ -1,8 +1,8 @@
 <template>
   <div class="circle" :style="{width: size+'rem', height: size+'rem', fontSize: fontSize+'rem'}">
-    <div class="inner" :style="{borderColor: borderColor, borderWidth: borderWidth+'rem'}">
-      <p>{{ count }}</p>
-      <span>to go</span>
+    <div class="inner" :style="{borderColor: borderColor, borderWidth: borderWidth+'rem', backgroundColor: backgroundColor}">
+      <p :style="{color: color}">{{ count }}</p>
+      <span :style="{color: spanColor}">to go</span>
     </div>
   </div>
 </template>
@@ -29,10 +29,30 @@
       fontSize: {
         type: Number,
         default: null
+      },
+      backgroundColor: {
+        type: String,
+        default: ''
       }
     },
     data () {
       return {}
+    },
+    computed: {
+      color () {
+        if (this.backgroundColor === '') {
+          return '#fff'
+        } else {
+          return '#595b5b'
+        }
+      },
+      spanColor () {
+        if (this.backgroundColor === '') {
+          return '#e9eceb'
+        } else {
+          return '#8c8c8f'
+        }
+      }
     }
   }
 </script>
@@ -52,7 +72,6 @@
       height: 100%
       border-radius: 50%
       border: 38px solid #cac2b4
-      background: #fff
       text-align: center
       p
         flex: 1
