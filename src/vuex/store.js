@@ -97,9 +97,75 @@ export default new Vuex.Store({
         isCurrent: false
       },
       {
-        name: 'CLASSIC',
+        name: 'PICNIC',
+        backgroundColors: ['#DD5D38', '#93CFCD', '#B39A58', '#594992'],
+        circleColors: ['#E4D3B5', '#F4E0D5', '#FFC833', '#95CECB'],
+        isCurrent: false
+      },
+      {
+        name: 'SEAPUNK',
+        backgroundColors: ['#E675A3', '#62FFBC', '#7187ED', '#51BEC5'],
+        circleColors: ['#E72C7B', '#C5F7DA', '#5164B6', '#119890'],
+        isCurrent: false
+      },
+      {
+        name: 'MID MOD',
+        backgroundColors: ['#E6CABC', '#DDB5B3', '#CCCFBC', '#B4A6A5'],
+        circleColors: ['#579FA3', '#E5E3E6', '#E05742', '#37384D'],
+        isCurrent: false
+      },
+      {
+        name: 'PICNIC',
         backgroundColors: ['#', '#', '#', '#'],
         circleColors: ['#', '#', '#', '#'],
+        isCurrent: false
+      },
+      {
+        name: 'MERRY MARY',
+        backgroundColors: ['#DD5D6A', '#A469A3', '#EEA66B', '#6AB5DC'],
+        circleColors: ['#DD4E43', '#F8E1EE', '#E56F5E', '#399EC8'],
+        isCurrent: false
+      },
+      {
+        name: 'PICNIC',
+        backgroundColors: ['#', '#', '#', '#'],
+        circleColors: ['#', '#', '#', '#'],
+        isCurrent: false
+      },
+      {
+        name: 'JUNGLE TEA',
+        backgroundColors: ['#276968', '#69C3C4', '#E6BE69', '#F5E39B'],
+        circleColors: ['#59AAAB', '#D5E5E8', '#FCDF96', '#FECF69'],
+        isCurrent: false
+      },
+      {
+        name: 'DORIAN GRAY',
+        backgroundColors: ['#ACBB6A', '#7A5D59', '#313817', '#40556A'],
+        circleColors: ['#636560', '#EEE7E5', '#727D40', '#647799'],
+        isCurrent: false
+      },
+      {
+        name: 'SPACE',
+        backgroundColors: ['#D65F37', '#325A95', '#E9BF2F', '#0C192A'],
+        circleColors: ['#B84C2E', '#D8E0F2', '#CEA429', '#1C3B65'],
+        isCurrent: false
+      },
+      {
+        name: 'AFTER HOURS',
+        backgroundColors: ['#211F20', '#211F20', '#211F20', '#211F20'],
+        circleColors: ['#9ABDAB', '#DAF7FF', '#FF7AFC', '#A179FF'],
+        isCurrent: false
+      },
+      {
+        name: 'PASSION FRUIT',
+        backgroundColors: ['#7F1637', '#F57337', '#4A97BA', '#FFB633'],
+        circleColors: ['#ED6A92', '#9BB9D9', '#2CC6C5', '#B7811C'],
+        isCurrent: false
+      },
+      {
+        name: 'FOREST',
+        backgroundColors: ['#ACE48B', '#69B455', '#3C783A', '#1F4828'],
+        circleColors: ['#91BF76', '#E6F1E1', '#90BF79', '#90BF75'],
         isCurrent: false
       }
     ]
