@@ -2,7 +2,7 @@
   <div class='theme'>
     <div class="theme-content">
       <ul>
-        <li v-for="theme in themes" @click="changeTheme(theme)">
+        <li v-for="theme in themes" @click="changeTheme(theme)" :class="{active: theme.isCurrent}">
           <div class="color-block-wrapper">
             <colorblock
               :backgroundColors="theme.backgroundColors"></colorblock>     
@@ -51,20 +51,24 @@
     .theme-content
       width: 100%
       height: 290px
-      background: rgba(0, 0, 0, .8)
+      background: rgba(0, 0, 0, .7)
       overflow: auto
       ul
-        width: 2000px
+        display: flex
+        width: (194 * 15)px
         height: 290px
-        font-size: 0       
+        font-size: 0   
         li
-          display: inline-block
+          flex: 1
+          &.active
+            background: rgba(0, 0, 0, .5)
           .color-block-wrapper
             padding: 24px
           span
-            display: inline-block
-            width: 100%
-            height: 90px
+            display: block
+            box-sizing: border-box
+            width: 194px
+            padding: 0 24px
             font-size: 24px
             text-align: center
             color: #fff

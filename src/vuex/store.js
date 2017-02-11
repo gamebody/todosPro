@@ -115,21 +115,9 @@ export default new Vuex.Store({
         isCurrent: false
       },
       {
-        name: 'PICNIC',
-        backgroundColors: ['#', '#', '#', '#'],
-        circleColors: ['#', '#', '#', '#'],
-        isCurrent: false
-      },
-      {
         name: 'MERRY MARY',
         backgroundColors: ['#DD5D6A', '#A469A3', '#EEA66B', '#6AB5DC'],
         circleColors: ['#DD4E43', '#F8E1EE', '#E56F5E', '#399EC8'],
-        isCurrent: false
-      },
-      {
-        name: 'PICNIC',
-        backgroundColors: ['#', '#', '#', '#'],
-        circleColors: ['#', '#', '#', '#'],
         isCurrent: false
       },
       {
