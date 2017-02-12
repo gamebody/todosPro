@@ -3,3 +3,5 @@ node_modules/
 dist/
 resource/
 npm-debug.log
+.editorconfig
+.vscode
