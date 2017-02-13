@@ -5,7 +5,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentId: 0,
     lists: [
       {
         listName: 'main',
@@ -209,16 +208,14 @@ export default new Vuex.Store({
         }
       })
     },
-    addList (state, name) {
-      state.currentId++
-
+    addList (state, {listName, uuid}) {
       state.lists.forEach((list) => {
         list.isCurrent = false
       })
       const list = {
-        listName: name,
-        id: state.currentId,
-        themeName: 'CLASSIC',
+        listName: listName,
+        id: uuid,
+        themeName: 'I LIKE',
         isCurrent: true,
         categories: [
           {

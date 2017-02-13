@@ -93,6 +93,7 @@
   import colorblock from 'components/colorblock'
   import alert from 'components/alert'
   import maskk from 'components/mask'
+  import uuidv4 from 'uuid/v4'
 
   export default {
     data () {
@@ -142,6 +143,7 @@
         this.alertShow = false
         this.maskShow = false
         this.maskTransparent = false
+        this.$store.commit('cancelTheme')
         document.getElementById('js_show').style.transform = 'translate(-100%)'
       },
       showList () {
@@ -166,7 +168,11 @@
       },
       addListOk () {
         this.hiddenAll()
-        this.$store.commit('addList', this.$refs.alert.value)
+        const uuid = uuidv4()
+        this.$store.commit('addList', {
+          uuid,
+          listName: this.$refs.alert.value
+        })
         this.$refs.alert.value = ''
       },
       selectList (list) {
