@@ -7,32 +7,32 @@
           :save="false"
           @goBack="goBack"
           @saved="saved"
-          :backgroundColor="categorie.backgroundColor"
+          :backgroundColor="currentColor"
           color="#fff"></vheader>
       </div>
-      <div class="view-todo-info" :style="{backgroundColor: categorie.backgroundColor}">
+      <div class="view-todo-info" :style="{backgroundColor: currentColor}">
         <h6>TASK</h6>
         <div class="todo-info-text">
-          <input type="text" placeholder="Your Task">
+          <input type="text" placeholder="Your Task" v-model="text">
         </div>
         <div class="todo-info-position">
-          <div class="left">
+          <div class="left" @click="showPanelSelectList">
             <span class="icon-list2"></span>
-            <span>hahha</span>
+            <span>{{ list.listName }}</span>
           </div>
-          <div class="right">
+          <div class="right" @click="showPanelSelectCategorie">
             <div class="categorieblock-wrapper">
               <categorieblock
                 width="small"
                 color="#fff"
-                :position="this.$route.params.index + 1"></categorieblock>  
+                :position="position + 1"></categorieblock>  
             </div>
-            <span>好的</span>
+            <span>{{ list.categories[position].categorieName }}</span>
           </div>
         </div>
       </div>
       <div class="view-todo-content">
-        <ul :style="{color: categorie.backgroundColor}">
+        <ul :style="{color: currentColor}">
           <li>
             <div class="left">
               <span class="icon-date"></span>
@@ -61,7 +61,7 @@
 
 
     <div class="addnote" v-show="addnote">
-      <div class="addnote-header" :style="{color: categorie.backgroundColor}">
+      <div class="addnote-header" :style="{color: currentColor}">
         <div class="addnote-icon">
           <span class="icon-note"></span>
         </div>
@@ -72,49 +72,164 @@
           <span>DONE</span>
         </div>
       </div>
-      <div class="addnote-line" :style="{backgroundColor: categorie.backgroundColor}"></div>
+      <div class="addnote-line" :style="{backgroundColor: currentColor}"></div>
       <div class="addnote-content">
-        <textarea placeholder="Add a note" autofocus="true"></textarea>
+        <textarea placeholder="Add a note" autofocus="true" v-model="note"></textarea>
       </div>
     </div>
+
+    <div class="panel select-list" v-show="panelSelectListShow">
+      <h6>Task List</h6>
+      <ul>
+        <li v-for="(list,index) in lists" @click="SelectList(list.id)">
+          <div class="colorblock-wrapper">
+            <colorblock
+              :small="true"
+              :backgroundColors="list.backgroundColors"></colorblock>
+          </div>
+          <p>{{ list.listName }}</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel select-categorie" v-show="panelSelectCategorieShow">
+      <h6>Task category</h6>
+      <ul>
+        <li v-for="categorie, index of list.categories" 
+          :style="{backgroundColor: index === position ? categorie.backgroundColor : ''}"
+          @click="selectCategorie(index)">
+          <div class="left">
+            <div class="circle">
+              <div class="categorieblock-wrapper">
+              <categorieblock
+                width="big"
+                :color="categorie.backgroundColor"
+                :position="index+1"></categorieblock>
+              </div>
+            </div>  
+          </div>
+          <div class="right">
+            <p>{{ info[index] }}</p>
+            <span>{{ categorie.categorieName }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="vmask-wrapper" v-show="maskShow">
+      <vmask></vmask>
+    </div>
+
   </div>
 </template>
 
 <script>
   import vheader from 'components/header/header'
   import categorieblock from 'components/categorieblock'
+  import colorblock from 'components/colorblock'
+  import vmask from 'components/mask'
 
   export default {
     data () {
       return {
-        addnote: false
+        addnote: false,
+        panelSelectListShow: false,
+        panelSelectCategorieShow: false,
+        maskShow: false,
+        list: null,
+        position: 0,
+        info: [
+          'IMPORTANT AND URGENT',
+          'IMPORTANT BUT NOT URGENT',
+          'URGENT BUT NOT IMPORTANT',
+          'NOT IMPORTANT OR URGENT'
+        ],
+        text: '',
+        note: '',
+        dueDate: ''
+      }
+    },
+    computed: {
+      lists () {
+        const lists = this.$store.state.lists
+        const computedLists = []
+        let backgroundColors = []
+        lists.forEach((list) => {
+          list.categories.forEach((categorie) => {
+            backgroundColors.push(categorie.backgroundColor)
+          })
+          computedLists.push({
+            id: list.id,
+            listName: list.listName,
+            backgroundColors
+          })
+          backgroundColors = []
+        })
+
+        return computedLists
+      },
+      currentColor () {
+        return this.list.categories[this.position].backgroundColor
       }
     },
     methods: {
       goBack () {
         this.$router.go(-1)
       },
-      saved () {},
+      saved () {
+        this.$store.commit('addTodo', {
+          text: this.text,
+          note: this.note,
+          dueDate: this.dueDate,
+          createDate: new Date().getTime(),
+          listId: this.list.id,
+          position: this.position
+        })
+        this.goBack()
+      },
       noting () {
         this.addnote = true
       },
       noteDone () {
         this.addnote = false
+      },
+      showPanelSelectList () {
+        this.maskShow = true
+        this.panelSelectListShow = true
+      },
+      SelectList (id) {
+        this.list = this.$store.state.lists.filter(list => list.id === id)[0]
+        this.maskShow = false
+        this.panelSelectListShow = false
+      },
+      showPanelSelectCategorie () {
+        this.maskShow = true
+        this.panelSelectCategorieShow = true
+      },
+      selectCategorie (index) {
+        this.maskShow = false
+        this.panelSelectCategorieShow = false
+        this.position = index
       }
     },
     created () {
-      const index = this.$route.params.index
-      this.categorie = this.$store.getters.currentList.categories[index]
+      this.position = this.$route.params.index
+      this.list = this.$store.getters.currentList
     },
     components: {
       vheader,
-      categorieblock
+      categorieblock,
+      colorblock,
+      vmask
     }
   }
 </script>
 
 <style lang='stylus'>
   .view-todo
+    position: relative
+    width: 100%
+    height: 100%
     .view-todo-info
       h6
         font-size: 20px
@@ -143,22 +258,21 @@
           span
             display: block
             float: left
-            height: 36px
-            font-size: 36px
+            line-height: 42px
+            font-size: 26px
             margin-right: 20px
-            line-height: 36px
           .icon-list2
-            font-size: 40px
+            display: block
+            float: left
+            font-size: 42px
         .right
           flex: 1
-          font-size: 0
-          vertical-align: bottom
           span
             display: block
             float: left
-            height: 36px
-            font-size: 30px
-            line-height: 36px
+            font-size: 26px
+            line-height: 42px
+            height: 35px
           .categorieblock-wrapper
             float: left
             margin-right: 20px
@@ -216,5 +330,72 @@
           height: 500px
           font-size: 45px
           color: #000
+    .panel
+      display: flex
+      flex-direction: column
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      z-index: 300
+      width: 90%
+      border-radius: 5px
+      box-shadow: 0 0 5px #323232
+      background: #fff
+      h6
+        flex: 1
+        height: 120px
+        font-size: 36px
+        line-height: 120px
+        text-indent: 34px
+      &.select-list
+        ul
+          li
+            display: flex
+            align-items: center
+            height: 130px
+            padding-left: 40px
+            .colorblock-wrapper
+              width: 100px
+              align-self: center
+            p
+              flex: 1
+              font-size: 44px
+              color: #636363
+      &.select-categorie
+        ul
+          font-size: 20px
+          li
+            display: flex
+            align-items: center
+            height: 166px
+            margin: 0 18px 18px 18px
+            background: #bababa
+            .left
+              width: 166px
+              text-align: center
+              font-size: 0
+              .circle
+                display: inline-block
+                position: relative
+                width: 100px
+                height: 100px
+                border-radius: 50%
+                background: #fff
+                line-height: 106px
+                .categorieblock-wrapper
+                  position: absolute
+                  top: 50%
+                  left: 50%
+                  transform: translate(-50%, -50%)
+            .right
+              flex: 1
+              color: #fff
+              p
+                font-size: 24px
+                line-height: 50px
+                vertical-align: top
+              span
+                font-size: 28px
 
 </style>

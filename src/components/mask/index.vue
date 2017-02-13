@@ -12,7 +12,6 @@
     },
     computed: {
       backgroundColor () {
-        console.log(this.transparent ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, .6)')
         return this.transparent ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, .6)'
       }
     }

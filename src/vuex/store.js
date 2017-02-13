@@ -287,6 +287,16 @@ export default new Vuex.Store({
     },
     reset (state, {categoriePosition, todoPosition}) {
       state.lists.filter((list) => list.isCurrent)[0].categories[categoriePosition].todos[todoPosition].completed = false
+    },
+    addTodo (state, {text, note, dueDate, createDate, listId, position}) {
+      const todo = {
+        text,
+        dueDate,
+        note,
+        createDate,
+        completed: false
+      }
+      state.lists.filter(list => list.id === listId)[0].categories[position].todos.push(todo)
     }
   },
   getters: {

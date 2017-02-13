@@ -20,7 +20,8 @@
                 <div class="list-theme">
                   <div class="color-block-wrapper">
                     <colorblock
-                      :small="true"></colorblock>
+                      :small="true"
+                      :backgroundColors="list.backgroundColors"></colorblock>
                   </div> 
                 </div>
                 <div class="list-name ">
@@ -119,9 +120,11 @@
             isCurrent: list.isCurrent,
             listName: list.listName,
             themeName: list.themeName,
-            unfinishedCount: 0
+            unfinishedCount: 0,
+            backgroundColors: []
           }
           list.categories.forEach((categorie) => {
+            obj.backgroundColors.push(categorie.backgroundColor)
             categorie.todos.forEach((todo) => {
               if (!todo.isFinished) {
                 obj.unfinishedCount++
