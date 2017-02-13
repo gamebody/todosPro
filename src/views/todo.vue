@@ -291,7 +291,7 @@
             text-align: center
             font-size: 0
             span
-              font-size: 72px
+              font-size: 64px
           .right
             line-height: 36px
             &>span

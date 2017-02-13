@@ -5,7 +5,7 @@
         <p><span>Created</span> 1 days ago</p>
       </div>
       <div class="right">
-        <span class="icon-list2"></span>
+        <span class="icon-edit"></span>
       </div>
     </div>
     <div class="todoinfo-banner"></div>
@@ -23,13 +23,13 @@
     <div class="todoinfo-footer">
       <div class="completed" @click="completed">
         <div class="icon">
-          <span class="icon-back"></span>
+          <span class="icon-complete"></span>
         </div>
         <span>Completed</span>
       </div>
       <div class="delete" @click="deletetodo">
         <div class="icon">
-          <span class="icon-back"></span>
+          <span class="icon-delete"></span>
         </div>
         <span>Delete</span>
       </div>
@@ -87,6 +87,7 @@
       .right
         width: 116px
         text-align: center
+        color: #6d6d6d
     .todoinfo-banner
       height: 234px
       border-top: 1px solid #cecece
@@ -115,6 +116,7 @@
       justify-content: space-between
       align-items: center
       height: 118px
+      border-top: 1px solid #ccc
       text-align: center
       .completed
       .delete
