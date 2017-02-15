@@ -16,7 +16,7 @@
           <h6>NOTE</h6>
         </div>
         <div class="note-content">
-          <p>{{ todo.note }}</p>
+          <p v-html="todo.note"></p>
         </div>
       </div>
     </div>

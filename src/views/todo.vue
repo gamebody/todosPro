@@ -37,22 +37,36 @@
             <div class="left">
               <span class="icon-date"></span>
             </div>
-            <div class="right">
+            <div class="right" @click="dueDateHandler">
               <div class="right-header">
                 <span>DUE</span>
               </div>
-              <span>Set a due date and time</span>
+              <span v-show="!timeShow">Set a due date and time</span>
+              <div class="time" v-show="timeShow">
+                <span class="icon-date"></span>
+                <span>Today</span>
+                <span>上午10:30</span>
+              </div>
+            </div>
+            <div class="time-delete" v-show="timeShow" @click="clearTime">
+              <span class="icon-delete"></span>
             </div>
           </li>
-          <li @click="noting">
+          <li>
             <div class="left">
               <span class="icon-note"></span>
             </div>
-            <div class="right">
+            <div class="right"  @click="noting">
               <div class="right-header">
                 <span>NOTE</span>
               </div>
-              <span>Add a note</span>
+              <span v-show="!note">Add a note</span>
+              <div class="note-small" v-show="note">
+                <p v-html="smallNote"></p>
+              </div>
+            </div>
+            <div class="time-delete" v-show="note" @click="clearNote">
+              <span class="icon-delete"></span>
             </div>
           </li>
         </ul>
@@ -136,6 +150,7 @@
         panelSelectListShow: false,
         panelSelectCategorieShow: false,
         maskShow: false,
+        timeShow: false,
         list: null,
         position: 0,
         info: [
@@ -170,6 +185,9 @@
       },
       currentColor () {
         return this.list.categories[this.position].backgroundColor
+      },
+      smallNote () {
+        return this.note.replace(/\n/g, '<br/>')
       }
     },
     methods: {
@@ -210,6 +228,15 @@
         this.maskShow = false
         this.panelSelectCategorieShow = false
         this.position = index
+      },
+      clearTime () {
+        this.timeShow = false
+      },
+      dueDateHandler () {
+        this.timeShow = true
+      },
+      clearNote () {
+        this.note = ''
       }
     },
     created () {
@@ -283,9 +310,9 @@
         margin-top: 26px
         li
           display: flex
-          height: 140px
           font-size: 28px
-          align-items: center
+          align-items: flex-start
+          margin: 60px 0
           .left
             width: 142px
             text-align: center
@@ -293,9 +320,32 @@
             span
               font-size: 64px
           .right
+            flex: 1
             line-height: 36px
             &>span
               color: #969696
+            .time
+              font-size: 0
+              padding-top: 20px
+              span
+                display: inline-block
+                font-size: 28px
+                color: #000
+                &:not(:first-child)
+                  margin-left: 12px
+                  border-bottom: 1px solid #000
+            .note-small
+              p
+                width: 480px
+                height: 108px
+                overflow: hidden
+                text-overflow: ellipsis
+                word-break: break-all
+                font-size: 30px
+                color: #000
+          .time-delete
+            width: 120px
+            text-align: center
     .addnote
       .addnote-header
         display: flex
