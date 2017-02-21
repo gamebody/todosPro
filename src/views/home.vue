@@ -1,4 +1,5 @@
 <template>
+<transition name="slide-right" mode="">
   <div class="home">
     <vheader
       :list-name="listName"
@@ -83,7 +84,9 @@
         :operation="operation"
         ref="alert"></alert>
     </div>
-  </div>
+  </div> 
+</transition>
+
 </template>
 
 <script>
@@ -103,7 +106,8 @@
         themeShow: false,
         alertShow: false,
         maskTransparent: false,
-        operation: 'addList'
+        operation: 'addList',
+        transitionName: 'slide-right'
       }
     },
     computed: {
@@ -222,6 +226,7 @@
 </script>
 
 <style lang="stylus">
+
   .home
     position: relative
     width: 100%

@@ -1,4 +1,5 @@
 <template>
+<transition name="" mode="">
   <div class='view-categorie'>
     <div class="header-wrapper">
       <vheader
@@ -59,13 +60,20 @@
         :backgroundColor="categorie.backgroundColor"></addbutton>
     </div>
 
-    <div class="todoinfo-wrapper" v-show="todoinfoShow">
+    <transition name="slide-top" mode="">
+      <div class="todoinfo-wrapper" v-show="todoinfoShow">
       <todoinfo
         :todo="currentTodo"
         :index="currentIndex"
         @finished="finished"></todoinfo>
+      </div>    
+    </transition>
+    <div class="mask-wrapper" v-show="maskShow" @click="finished">
+      <vmask></vmask>
     </div>
   </div>
+</transition>
+
 </template>
 
 <script>
@@ -73,26 +81,33 @@
   import addbutton from 'components/addbutton'
   import vcircle from 'components/circle'
   import todoinfo from 'components/todoinfo'
+  import vmask from 'components/mask'
 
   export default {
     data () {
       return {
         todoinfoShow: false,
+        maskShow: false,
         currentTodo: {},
         currentIndex: 0
       }
     },
     methods: {
+      toggleMaskShow () {
+        this.maskShow = !this.maskShow
+      },
       goBack () {
         this.$router.go(-1)
       },
       showTodoInfo (todo, index) {
         this.todoinfoShow = true
+        this.toggleMaskShow()
         this.currentTodo = todo
         this.currentIndex = index
       },
       finished () {
         this.todoinfoShow = false
+        this.toggleMaskShow()
       },
       goViewTodo () {
         this.$router.push({
@@ -111,7 +126,8 @@
       vheader,
       addbutton,
       vcircle,
-      todoinfo
+      todoinfo,
+      vmask
     }
   }
 </script>
@@ -146,7 +162,17 @@
       left: 0
       right: 0
       bottom: 0
+      z-index: 300
       background: #fff
+    .slide-top-enter
+    .slide-top-leave-to
+      transform: translate(0, 100%)
+    .slide-top-enter-to
+    .slide-top-leave
+      transform: translate(0)
+    .slide-top-enter-active
+    .slide-top-leave-active
+      transition: all .5s ease
     .view-categorie-content
       position: absolute
       left: 0

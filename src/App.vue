@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <transition name="view-left" mode="">
-      <router-view></router-view>  
-    </transition>
+    <router-view></router-view>  
   </div>
 </template>
 
@@ -17,14 +15,27 @@ export default {
     width: 100%
     height: 100%
     font-family: 'Avenir', Helvetica, Arial, sans-serif
-    .view-left-enter
-      transform: translate(100%)
-    .view-left-enter-to, .view-left-leave
-      transform: translate(0)
-    .view-left-enter-active
-    .view-left-leave-active
-      transition: all .5s ease
-    .view-left-leave-to
-      transform: translate(-100%)
-      
+  .slide-right-enter
+    transform: translate(-100%)
+  .slide-right-enter-to
+    transform: translate(0)
+  .slide-right-enter-active
+    transition: all .5s ease
+
+  .slide-left-enter
+    transform: translate(100%)
+  .slide-left-enter-to
+    transform: translate(0)
+  .slide-left-enter-active
+    transition: all .5s ease
+
+  .slide-enter
+  .slide-leave-to
+    transform: translate(100%)
+  .slide-enter-to
+  .slide-leave
+    transform: translate(0)
+  .slide-enter-active
+    transition: all .5s ease
+
 </style>

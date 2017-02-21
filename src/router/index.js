@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
+      name: 'home',
       component: require('src/views/home')
     },
     {

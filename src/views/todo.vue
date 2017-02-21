@@ -1,4 +1,5 @@
 <template>
+<transition name="slide" mode="">
   <div class='view-todo'>
     <div v-show="!addnote">
       <div class="header-wrapper">
@@ -134,7 +135,9 @@
       <vmask></vmask>
     </div>
 
-  </div>
+  </div> 
+</transition>
+
 </template>
 
 <script>
@@ -447,5 +450,7 @@
                 vertical-align: top
               span
                 font-size: 28px
+
+
 
 </style>
