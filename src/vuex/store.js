@@ -280,7 +280,8 @@ export default new Vuex.Store({
       })
     },
     completed (state, {categoriePosition, todoPosition}) {
-      state.lists.filter((list) => list.isCurrent)[0].categories[categoriePosition].todos[todoPosition].completed = true
+      const current = state.lists.filter((list) => list.isCurrent)[0].categories[categoriePosition].todos[todoPosition].completed
+      state.lists.filter((list) => list.isCurrent)[0].categories[categoriePosition].todos[todoPosition].completed = !current
     },
     delete (state, {categoriePosition, todoPosition}) {
       state.lists.filter((list) => list.isCurrent)[0].categories[categoriePosition].todos.splice(todoPosition, 1)

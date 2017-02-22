@@ -38,7 +38,7 @@
     },
     computed: {
       count () {
-        return this.todos.filter((todo) => !todo.isFinished).length
+        return this.todos.filter((todo) => !todo.completed).length
       }
     },
     components: {

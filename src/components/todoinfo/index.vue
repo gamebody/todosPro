@@ -23,9 +23,9 @@
     <div class="todoinfo-footer">
       <div class="completed" @click="completed">
         <div class="icon">
-          <span class="icon-complete"></span>
+          <span :class="{'icon-complete': !todo.completed, 'icon-list': todo.completed}"></span>         
         </div>
-        <span>Completed</span>
+        <span>{{ todo.completed ? 'Reset' : 'Completed'}}</span>
       </div>
       <div class="delete" @click="deletetodo">
         <div class="icon">

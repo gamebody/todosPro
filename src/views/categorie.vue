@@ -12,7 +12,7 @@
     <div class="view-categorie-data" :style="{backgroundColor: categorie.backgroundColor}">
       <div class="left">
         <ul>
-          <li><span>7</span> completed!</li>
+          <li><span>{{ completedCount }}</span> completed!</li>
           <li><span>0</span> due today</li>
           <li><span>0</span> overdue</li>
         </ul>
@@ -24,7 +24,7 @@
             :size="1.35"
             :borderWidth="0.18"
             :fontSize="0.4"
-            :count="12"></vcircle>
+            :count="UnCompletedCount"></vcircle>
         </div>
       </div>
     </div>
@@ -88,6 +88,17 @@
         maskShow: false,
         currentTodo: {},
         currentIndex: 0
+      }
+    },
+    computed: {
+      UnCompletedCount () {
+        return this.categorie.todos.filter((todo) => !todo.completed).length
+      },
+      completedCount () {
+        return this.categorie.todos.filter((todo) => todo.completed).length
+      },
+      totalCount () {
+        return this.categorie.todos.length
       }
     },
     methods: {
