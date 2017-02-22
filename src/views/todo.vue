@@ -1,98 +1,97 @@
 <template>
-<transition name="slide" mode="">
   <div class='view-todo'>
-    <div v-show="!addnote">
-      <div class="header-wrapper">
-        <vheader
-          icon="back"
-          :save="false"
-          @goBack="goBack"
-          @saved="saved"
-          :backgroundColor="currentColor"
-          color="#fff"></vheader>
-      </div>
-      <div class="view-todo-info" :style="{backgroundColor: currentColor}">
-        <h6>TASK</h6>
-        <div class="todo-info-text">
-          <input type="text" placeholder="Your Task" v-model="text">
+    <transition name="note" mode="out-in">
+      <div class="notnote" v-if="!addnote" key="saved">
+        <div class="header-wrapper">
+          <vheader
+            icon="back"
+            :save="false"
+            @goBack="goBack"
+            @saved="saved"
+            :backgroundColor="currentColor"
+            color="#fff"></vheader>
         </div>
-        <div class="todo-info-position">
-          <div class="left" @click="showPanelSelectList">
-            <span class="icon-list2"></span>
-            <span>{{ list.listName }}</span>
+        <div class="view-todo-info" :style="{backgroundColor: currentColor}">
+          <h6>TASK</h6>
+          <div class="todo-info-text">
+            <input type="text" placeholder="Your Task" v-model="text">
           </div>
-          <div class="right" @click="showPanelSelectCategorie">
-            <div class="categorieblock-wrapper">
-              <categorieblock
-                width="small"
-                color="#fff"
-                :position="position + 1"></categorieblock>  
+          <div class="todo-info-position">
+            <div class="left" @click="showPanelSelectList">
+              <span class="icon-list2"></span>
+              <span>{{ list.listName }}</span>
             </div>
-            <span>{{ list.categories[position].categorieName }}</span>
-          </div>
-        </div>
-      </div>
-      <div class="view-todo-content">
-        <ul :style="{color: currentColor}">
-          <li>
-            <div class="left">
-              <span class="icon-date"></span>
-            </div>
-            <div class="right" @click="dueDateHandler">
-              <div class="right-header">
-                <span>DUE</span>
+            <div class="right" @click="showPanelSelectCategorie">
+              <div class="categorieblock-wrapper">
+                <categorieblock
+                  width="small"
+                  color="#fff"
+                  :position="position + 1"></categorieblock>  
               </div>
-              <span v-show="!timeShow">Set a due date and time</span>
-              <div class="time" v-show="timeShow">
+              <span>{{ list.categories[position].categorieName }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="view-todo-content">
+          <ul :style="{color: currentColor}">
+            <li>
+              <div class="left">
                 <span class="icon-date"></span>
-                <span>Today</span>
-                <span>上午10:30</span>
               </div>
-            </div>
-            <div class="time-delete" v-show="timeShow" @click="clearTime">
-              <span class="icon-delete"></span>
-            </div>
-          </li>
-          <li>
-            <div class="left">
-              <span class="icon-note"></span>
-            </div>
-            <div class="right"  @click="noting">
-              <div class="right-header">
-                <span>NOTE</span>
+              <div class="right" @click="dueDateHandler">
+                <div class="right-header">
+                  <span>DUE</span>
+                </div>
+                <span v-show="!timeShow">Set a due date and time</span>
+                <div class="time" v-show="timeShow">
+                  <span class="icon-date"></span>
+                  <span>Today</span>
+                  <span>上午10:30</span>
+                </div>
               </div>
-              <span v-show="!note">Add a note</span>
-              <div class="note-small" v-show="note">
-                <p v-html="smallNote"></p>
+              <div class="time-delete" v-show="timeShow" @click="clearTime">
+                <span class="icon-delete"></span>
               </div>
-            </div>
-            <div class="time-delete" v-show="note" @click="clearNote">
-              <span class="icon-delete"></span>
-            </div>
-          </li>
-        </ul>
+            </li>
+            <li>
+              <div class="left">
+                <span class="icon-note"></span>
+              </div>
+              <div class="right"  @click="noting">
+                <div class="right-header">
+                  <span>NOTE</span>
+                </div>
+                <span v-show="!note">Add a note</span>
+                <div class="note-small" v-show="note">
+                  <p v-html="smallNote"></p>
+                </div>
+              </div>
+              <div class="time-delete" v-show="note" @click="clearNote">
+                <span class="icon-delete"></span>
+              </div>
+            </li>
+          </ul>
+        </div>   
       </div>   
-    </div>
 
-
-    <div class="addnote" v-show="addnote">
-      <div class="addnote-header" :style="{color: currentColor}">
-        <div class="addnote-icon">
-          <span class="icon-note"></span>
+      <div class="addnote" v-else key="addnote">
+        <div class="addnote-header" :style="{color: currentColor}">
+          <div class="addnote-icon">
+            <span class="icon-note"></span>
+          </div>
+          <div class="addnote-title">
+            <span>NOTE</span>
+          </div>
+          <div class="addnote-done" @click="noteDone">
+            <span>DONE</span>
+          </div>
         </div>
-        <div class="addnote-title">
-          <span>NOTE</span>
-        </div>
-        <div class="addnote-done" @click="noteDone">
-          <span>DONE</span>
+        <div class="addnote-line" :style="{backgroundColor: currentColor}"></div>
+        <div class="addnote-content">
+          <textarea placeholder="Add a note" autofocus="true" v-model="note"></textarea>
         </div>
       </div>
-      <div class="addnote-line" :style="{backgroundColor: currentColor}"></div>
-      <div class="addnote-content">
-        <textarea placeholder="Add a note" autofocus="true" v-model="note"></textarea>
-      </div>
-    </div>
-
+    </transition>
     <div class="panel select-list" v-show="panelSelectListShow">
       <h6>Task List</h6>
       <ul>
@@ -136,7 +135,6 @@
     </div>
 
   </div> 
-</transition>
 
 </template>
 
@@ -350,6 +348,17 @@
             width: 120px
             text-align: center
     .addnote
+    .notnote
+      &.note-enter
+      &.note-leave-to      
+        transform: translateY(-100%)
+      &.note-enter-to
+      &.note-leave
+        transform: translateY(0)        
+      &.note-enter-active
+      &.note-leave-active
+        transition: all .5s ease  
+    .addnote   
       .addnote-header
         display: flex
         height: 142px
@@ -450,7 +459,5 @@
                 vertical-align: top
               span
                 font-size: 28px
-
-
 
 </style>

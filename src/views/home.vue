@@ -1,5 +1,4 @@
 <template>
-<transition name="slide-right" mode="">
   <div class="home">
     <vheader
       :list-name="listName"
@@ -85,8 +84,6 @@
         ref="alert"></alert>
     </div>
   </div> 
-</transition>
-
 </template>
 
 <script>

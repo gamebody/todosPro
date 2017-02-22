@@ -1,5 +1,4 @@
 <template>
-<transition name="" mode="">
   <div class='view-categorie'>
     <div class="header-wrapper">
       <vheader
@@ -72,7 +71,6 @@
       <vmask></vmask>
     </div>
   </div>
-</transition>
 
 </template>
 
