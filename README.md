@@ -1,6 +1,26 @@
 # todospro
 
-> A Vue.js project
+> 基于安卓版app Ike 高仿的web项目
+
+技术栈：vue2 vue-router vuex
+
+截图：
+![1](https://github.com/gamebody/todospro/raw/master/screen/1.png)
+![2](https://github.com/gamebody/todospro/raw/master/screen/2.png)
+![3](https://github.com/gamebody/todospro/raw/master/screen/3.png)
+![4](https://github.com/gamebody/todospro/raw/master/screen/4.png)
+![5](https://github.com/gamebody/todospro/raw/master/screen/5.png)
+![6](https://github.com/gamebody/todospro/raw/master/screen/6.png)
+![7](https://github.com/gamebody/todospro/raw/master/screen/7.png)
+![8](https://github.com/gamebody/todospro/raw/master/screen/8.png)
+![9](https://github.com/gamebody/todospro/raw/master/screen/9.png)
+
+接下来做的：
+
+1. 更绚丽的动画
+2. 日期选择组件
+3. 添加时间等功能 
+
 
 ## Build Setup
 
