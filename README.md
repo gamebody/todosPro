@@ -4,7 +4,8 @@
 
 技术栈：vue2 vue-router vuex
 
-截图：
+## 截图：
+
 ![1](https://github.com/gamebody/todospro/raw/master/screen/1.png)
 ![2](https://github.com/gamebody/todospro/raw/master/screen/2.png)
 ![3](https://github.com/gamebody/todospro/raw/master/screen/3.png)
