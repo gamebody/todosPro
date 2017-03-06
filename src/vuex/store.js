@@ -203,6 +203,10 @@ export default new Vuex.Store({
           themes.forEach((theme) => {
             if (theme.isCurrent) {
               list.themeName = theme.name
+              list.categories.forEach((categorie, index) => {
+                categorie.backgroundColor = theme.backgroundColors[index]
+                categorie.circleColor = theme.circleColors[index]
+              })
             }
           })
         }
